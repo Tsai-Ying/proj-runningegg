@@ -1,0 +1,1443 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>草上奔牧場 Running Egg</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+        integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link
+        href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c&family=Noto+Sans+JP&family=Noto+Sans+TC:wght@400;500;700;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.0.8/fullpage.min.css">
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            margin: 0;
+            letter-spacing: 2px;
+            overflow: auto;
+        }
+
+        a {
+            color: #4C4948;
+            text-decoration: none;
+
+        }
+
+        h1 {
+            margin: 0;
+            color: #4C4948;
+            cursor: default;
+            font-size: 2.6rem;
+            transition: .4s;
+        }
+
+        h3 {
+            margin: 0;
+            cursor: default;
+            font-size: 2rem;
+            transition: .4s;
+
+        }
+
+        h4 {
+            margin: 0;
+            cursor: default;
+            color: #4C4948;
+            font-size: 1.6rem;
+            transition: .4s;
+
+        }
+
+        p {
+            color: #4C4948;
+            margin: 0;
+            cursor: default;
+            font-size: 1.4rem;
+            transition: .4s;
+
+        }
+
+        .transition {
+            transition: 0.4s;
+        }
+
+        .absolute {
+            position: absolute;
+        }
+
+        .flex {
+            display: flex;
+        }
+
+        ul,
+        li {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .z-1 {
+            z-index: 1;
+        }
+
+        .wrapper {
+            width: 100%;
+        }
+
+        .bg-paper {
+            background: url("images/background.jpg");
+            min-height: 100vh;
+            background-size: cover;
+        }
+
+        .btn {
+            transition: .4s;
+            background: #D08254;
+            border-radius: 20px;
+            padding: 0 20px;
+            height: 40px;
+            line-height: 40px;
+        }
+
+
+        .btn:hover {
+            background: #b96a3c;
+        }
+
+        .btn p {
+            margin: 0;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .pad {
+            display: none;
+        }
+
+        .mobile {
+            display: none;
+        }
+
+        .appear {
+            transform: translateX(0);
+        }
+
+        @media screen and (max-width: 1300px) {
+            h1 {
+
+                font-size: 2rem;
+            }
+
+            h3 {
+
+                font-size: 1.6rem;
+            }
+
+            h4 {
+
+                font-size: 1.2rem;
+            }
+
+            p {
+
+                font-size: 1rem;
+            }
+
+        }
+
+        @media screen and (max-width: 768px) {
+            .web {
+                display: none;
+            }
+
+            .pad {
+                display: unset;
+            }
+        }
+
+
+        @media screen and (max-width: 576px) {
+
+            .mobile {
+                display: unset;
+            }
+        }
+
+        .box-fixed {
+            position: fixed;
+            z-index: 2;
+        }
+
+        nav {
+            justify-content: flex-end;
+            position: fixed;
+            right: 0;
+            z-index: 2;
+        }
+
+        .menu {
+            padding: 1rem;
+            display: inline-block;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .box-bar {
+            z-index: 1;
+        }
+
+        .box-bar:hover,
+        .icon:hover {
+            transform: scale(1.1);
+        }
+
+        .menu .bar {
+            width: 36px;
+            height: 6px;
+            background: #4C4948;
+            margin: 6px 0;
+            border-radius: 3px;
+            z-index: 1;
+        }
+
+        .current .bar1 {
+            -webkit-transform: rotate(-45deg) translate(-9px, 7px);
+            transform: rotate(-45deg) translate(-9px, 7px);
+        }
+
+        .current .bar2 {
+            opacity: 0;
+        }
+
+        .current .bar3 {
+            -webkit-transform: rotate(45deg) translate(-9px, -8px);
+            transform: rotate(45deg) translate(-9px, -8px);
+        }
+
+        .menu-bg {
+            position: absolute;
+            background: #929D6A;
+            height: 100vh;
+            width: 100vw;
+            z-index: -1;
+            top: 0;
+            right: 0;
+            transform: translateX(100vw);
+            opacity: .95;
+        }
+
+        .menu.current .menu-bg {
+            transform: translateX(0);
+
+        }
+
+        .menu ul {
+            position: absolute;
+            top: 3.5rem;
+            right: 0;
+            writing-mode: vertical-rl;
+            opacity: 0;
+            overflow: hidden;
+            height: 100vh;
+            width: 0;
+            flex-direction: column;
+        }
+
+
+        .menu.current ul {
+            opacity: 1;
+            width: 200px;
+            height: 100vh;
+            padding: 0 1rem;
+        }
+
+        .menu ul li {
+            cursor: pointer;
+            font-size: 1rem;
+            padding: .5rem;
+            font-weight: 500;
+            letter-spacing: 2px;
+            height: 40vh;
+        }
+
+        .menu ul li:hover {
+            background: #ffffff7c;
+        }
+
+        .menu ul li.menu-logo:hover {
+            background: unset;
+        }
+
+        .menu ul li:hover a {
+            color: #000;
+        }
+
+        @media screen and (max-width: 768px) {
+
+            .menu ul {
+                writing-mode: unset;
+                align-items: center;
+                text-align: center;
+            }
+
+
+            .menu.current ul {
+                padding: 0;
+                width: 100vw;
+                text-align: center;
+            }
+
+            .menu ul li.menu-logo {
+                width: 50vw;
+                height: 50vw;
+                overflow: hidden;
+            }
+
+            .menu-logo img {
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+            }
+
+            .menu ul li {
+                height: 10vh;
+                width: 100vw;
+                line-height: 10vh;
+                font-size: 1.2rem;
+                color: #000;
+            }
+
+        }
+
+        .icon {
+            width: 36px;
+            height: 36px;
+            margin-top: 1rem;
+        }
+
+        .icon-fixed {
+            z-index: 2;
+            position: fixed;
+            left: 2vw;
+            bottom: 5vh;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .icon-fixed .line {
+            height: 20vh;
+            width: 0;
+            border-right: 2px solid #4C4948;
+        }
+
+
+        .btn-gotop {
+            position: fixed;
+            right: 2vw;
+            bottom: 5vh;
+            cursor: pointer;
+            opacity: 0;
+        }
+
+        .kv-main {
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding-top: 10vh;
+        }
+
+
+        .kv-top {
+            align-items: center;
+            z-index: 1;
+        }
+
+        .kv-bottom {
+            flex-direction: column;
+            z-index: 1;
+            align-items: center;
+        }
+
+        .kv-pic .grass-l {
+            height: 15vh;
+            left: 10%;
+            height: 15%;
+
+        }
+
+        .kv-top .img-logo-kv {
+            width: 40vh;
+            margin: 1rem 3rem;
+        }
+
+        .kv-top .img-text-l,
+        .kv-top .img-text-r {
+            width: 3vh;
+
+        }
+
+
+        .kv-bottom .img-logo-text {
+            width: 50vh;
+            z-index: 1;
+        }
+
+        .kv-bottom .img-grass-below {
+            width: 50vh;
+            transform: translateY(-5vh)
+        }
+
+        .kv-bottom .img-grass-below:hover{
+            transform: translateY(-2vh)
+        }
+
+        .kv-bottom .img-freerange {
+            height: 5vh;
+            margin: 3rem 0 1rem;
+        }
+
+        .kv-bottom .img-freerange:hover {
+            height: 6vh;
+        }
+
+        .kv-bg .img-flower1 {
+            width: 6vw;
+            top: 15vh;
+            right: 10vw;
+        }
+
+        .kv-bg .img-flower1:hover {
+            transform: rotate(200deg);
+        }
+
+        .kv-bg .img-flower3 {
+            width: 10vw;
+            left: 10vw;
+            top: 15%;
+        }
+
+        .kv-bg .img-flower3:hover {
+            transform: translate(-20px, -20px);
+        }
+
+        .kv-bg .img-grass-l {
+            height: 40vh;
+            left: 0;
+            bottom: 0;
+        }
+
+        .kv-bg .img-grass-l:hover {
+            height: 45vh;
+            transform: translate(5px, -5px);
+        }
+
+        .kv-bg .img-tree-r {
+            height: 45vh;
+            right: 2vw;
+            bottom: 0;
+        }
+
+        .kv-bg .img-tree-r:hover {
+            height: 50vh;
+            transform: translate(5px, -5px);
+        }
+
+        .kv-bg .img-strawberry-l {
+            width: 8vw;
+            left: 20vw;
+            top: 40vh;
+        }
+
+        .kv-bg .img-strawberry-l:hover {
+            transform: scaleX(-1);
+        }
+
+        .kv-bg .img-flower-r {
+            width: 8vw;
+            right: 25vw;
+            top: 6vh;
+        }
+
+        .kv-bg .img-flower-r:hover {
+            transform: scaleX(-1);
+        }
+
+
+
+        @media screen and (max-width: 992px) {
+            .kv-top {
+                margin-top: 10vh;
+            }
+
+            .kv-bg .img-tree-r,
+            .kv-bg .img-grass-l,
+            .kv-bg .img-strawberry-l,
+            .kv-bottom .img-freerange {
+                display: none;
+            }
+        }
+
+        @media screen and (max-width: 576px) {
+            .kv-main {
+                padding: 0;
+            }
+
+            .kv-top {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .kv-top .img-logo-kv {
+                width: 60vw;
+                margin: 2rem;
+            }
+
+            .kv-top .img-text-l,
+            .kv-top .img-text-r {
+                width: 25px;
+                margin: 0 2.2rem;
+                order: -1;
+            }
+
+            .kv-bottom .img-logo-text {
+                width: 60vw;
+            }
+
+            .kv-bottom .img-grass-below {
+                width: 60vw;
+                transform: translateY(0);
+
+            }
+
+            .kv-bg .img-flower1 {
+                width: 15vw;
+                top: 35%;
+                right: 5%;
+            }
+
+            .kv-bg .img-flower3 {
+                width: 20vw;
+                top: 25%;
+                left: 5%;
+            }
+
+            .kv-bg .img-flower-r {
+                width: 20vw;
+                top: 2%;
+                right: 20%;
+            }
+        }
+
+
+        /* 牧場介紹 */
+        .block-farm {
+            flex-direction: column;
+            justify-content: space-evenly;
+            min-height: 100vh;
+            background: #F1F2CD;
+            overflow: hidden;
+        }
+
+        .farm-main {
+            margin-top: 2rem;
+            justify-content: center;
+        }
+
+        .farm-title {
+            /* transition: 1s; */
+            margin-left: 10vw;
+            /* transform: translateX(-100%); */
+        }
+
+        .farm-title .line {
+            width: 300px;
+            border-top: 6px solid #929D6A;
+        }
+
+        .farm-icon {
+            flex-direction: column;
+            justify-content: center;
+            justify-content: space-between;
+            overflow: hidden;
+        }
+
+        .card-icon {
+            margin: 3vh 3vw;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .card-icon .icon-wrapper {
+            width: 120px;
+            height: 120px;
+            margin: 2px;
+            background: #EDEB3F;
+            border-radius: 50%;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .card-icon img {
+            width: 80px;
+        }
+
+        .card-icon h4 {
+            font-weight: 600;
+        }
+
+
+
+        .slideWrapper {
+            width: 750px;
+            height: 500px;
+            overflow: hidden;
+            position: relative;
+            border-radius: 10px;
+        }
+
+        .slideImages {
+            left: 0;
+            transition: 1s;
+            position: absolute;
+        }
+
+        .slideImages li {
+            width: 750px;
+        }
+
+        .slideImages img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .slideDots {
+            justify-content: center;
+            flex-direction: column;
+            align-self: flex-start;
+        }
+
+        .slideDots li {
+            width: 15px;
+            height: 15px;
+            background: #929D6A;
+            border-radius: 50%;
+            margin: 5px 5px;
+        }
+
+        .slideDots li:hover,
+        .slideDots li.current {
+            background: #D08254;
+        }
+
+        .arrow-btn {
+            top: 0;
+            bottom: 0;
+            width: 48px;
+            font-size: 40px;
+            opacity: .6;
+            cursor: pointer;
+            position: absolute;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+        }
+
+        .arrow-btn:hover {
+            opacity: 1;
+            color: #D08254;
+        }
+
+        .arrow-left {
+            left: 0;
+        }
+
+        .arrow-right {
+            right: 0;
+        }
+
+        .farm-bottom {
+            justify-content: space-evenly;
+            width: 750px;
+            align-self: center;
+            padding: 20px 0;
+            overflow: hidden;
+        }
+
+        .farm-bottom h4 {
+            color: #D08254;
+            text-decoration: underline;
+        }
+
+        @media screen and (max-width: 1300px) {
+            .slideWrapper {
+                width: 600px;
+                height: 400px;
+            }
+
+            .slideImages li {
+                width: 600px;
+            }
+        }
+
+        @media screen and (max-width: 1050px) {
+            .farm-title {
+                margin-top: 10px;
+            }
+
+            .farm-main {
+                order: 1;
+                align-items: center;
+                margin: 0;
+                flex-wrap: wrap;
+            }
+
+            .farm-slider {
+                order: -1;
+            }
+
+            .slideWrapper {
+                width: 75vw;
+                height: 50vw;
+            }
+
+            .slideImages li {
+                width: 75vw;
+            }
+
+            .farm-icon {
+                width: 50%;
+                flex-direction: row;
+                justify-content: space-around;
+            }
+
+            .farm-bottom {
+                margin-left: 10vw;
+                align-self: flex-start;
+                width: 60vw;
+                flex-direction: column;
+                justify-content: left;
+            }
+
+            .farm-bottom .btn {
+                margin-top: 10px;
+                width: 150px;
+            }
+
+        }
+
+        @media screen and (max-width: 768px) {
+            .farm-main {
+                flex-direction: column;
+            }
+
+            .farm-icon {
+                width: 80%;
+            }
+        }
+
+        @media screen and (max-width: 576px) {
+            .farm-slider {
+                flex-direction: column;
+            }
+
+            .slideDots {
+                flex-direction: row;
+            }
+
+            .farm-bottom .farm-b-l {
+                display: none;
+            }
+
+            .slideWrapper {
+                width: 90vw;
+                height: 60vw;
+            }
+
+            .slideImages li {
+                width: 90vw;
+            }
+        }
+
+        .block-egg {
+            flex-direction: column;
+            justify-content: space-evenly;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .egg-bg img {
+            height: 100vh;
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            opacity: .8;
+            transform: translateX(-50%);
+        }
+
+        .egg-title h1 {
+            margin: 0 0 0 10vw;
+        }
+
+        .egg-main {
+            justify-content: center;
+        }
+
+        .egg-aside {
+            padding-top: 20px;
+        }
+
+        .egg-aside-l {
+            flex-direction: row-reverse;
+        }
+
+        .egg-aside-lt {
+            flex-direction: column;
+            justify-content: flex-start;
+            padding-right: 20px;
+        }
+
+        .egg-aside-rt {
+            flex-direction: column;
+            align-items: flex-start;
+            padding-left: 20px;
+        }
+
+        .egg-aside-lt .flex,
+        .egg-aside-rt .flex {
+            flex-direction: column;
+        }
+
+        .egg-aside h3 {
+            background: #D08254;
+            color: #fff;
+            width: 120px;
+            height: 60px;
+            line-height: 60px;
+            text-align: center;
+            border-radius: 40px;
+        }
+
+        .egg-aside .flex {
+            align-items: center;
+        }
+
+
+        .egg-aside h4 {
+            color: #fff;
+            background: #929D6A;
+            width: 160px;
+            height: 40px;
+            border-radius: 20px;
+            text-align: center;
+            line-height: 40px;
+            font-weight: 600;
+            margin-top: 20px;
+        }
+
+        .egg-aside p {
+            text-decoration: underline;
+            padding: 0 10px;
+            font-weight: 600;
+            width: 20vw;
+        }
+
+        @media screen and (max-width: 1300px) {
+
+            .egg-aside-l,
+            .egg-aside-r {
+                flex-direction: column;
+                align-items: center;
+                margin: 0 10px;
+            }
+
+            .egg-aside-lt,
+            .egg-aside-rt {
+                flex-direction: column;
+                align-items: center;
+                padding: 0;
+            }
+
+            .egg-aside-lt .flex,
+            .egg-aside-rt .flex {
+                flex-direction: row;
+            }
+
+            .egg-aside-lt {
+                justify-content: flex-end;
+            }
+
+            .egg-aside h4 {
+                width: 110px;
+                margin: 10px 10px 0 10px;
+
+            }
+
+            .egg-aside p {
+                padding: 20px 20px;
+                width: 25vw;
+            }
+
+            .egg-aside-l p {
+                text-align: right;
+            }
+
+            .egg-bg img {
+                width: 80vw;
+            }
+        }
+
+        @media screen and (max-width: 992px) {
+
+            .egg-bg img {
+                display: none;
+            }
+
+            .block-egg {
+                overflow: hidden;
+                align-items: center;
+            }
+
+            .egg-title h1 {
+                margin: 30px 0;
+            }
+
+            .egg-main {
+                width: 95vw;
+                flex-wrap: wrap;
+                justify-content: center;
+                align-self: center;
+            }
+
+            .egg-center {
+                text-align: center;
+                width: 95vw;
+                order: -1;
+            }
+
+            .egg-aside p {
+                padding: 20px 0 30px 0;
+                text-align: center;
+                width: 30vw;
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            .egg-title {
+                width: 60vw;
+            }
+
+            .egg-aside {
+                width: 40vw;
+                padding: 0;
+                margin: 0;
+            }
+
+            .egg-center {
+                width: 90vw;
+            }
+        }
+
+        @media screen and (max-width: 576px) {
+            .block-egg {
+                padding: 20px;
+            }
+
+            .egg-center {
+                display: none;
+            }
+
+            .egg-title {
+                width: 75vw;
+            }
+
+            .egg-main {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .egg-aside {
+                width: 80vw;
+            }
+
+            .egg-aside-l,
+            .egg-aside-r {
+                flex-direction: column;
+                align-items: center;
+                margin: 20px 10px 0;
+            }
+
+            .egg-aside-lt,
+            .egg-aside-rt {
+                flex-direction: column;
+                align-items: center;
+                margin: 0;
+                padding: 0;
+            }
+
+            .egg-aside-lt .flex,
+            .egg-aside-rt .flex {
+                flex-direction: row;
+            }
+
+            .egg-aside-lt {
+                justify-content: flex-end;
+            }
+
+            .egg-aside h4 {
+                margin: 10px;
+            }
+
+            .egg-aside p {
+                padding: 20px 0 30px 0;
+                text-align: left;
+                width: 75vw;
+            }
+        }
+
+        .block-contact {
+            overflow: hidden;
+            height: 80vh;
+            background: #F1F2CD;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .logo-card {
+            width: 60vh;
+            border-radius: 20%;
+            overflow: hidden;
+        }
+
+        .logo-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .contact-r {
+            flex-direction: column;
+            justify-content: space-evenly;
+            align-items: center;
+            margin-left: 10vw;
+            height: 60vh;
+        }
+
+        .contact-r ul {
+            flex-direction: column;
+            justify-content: space-evenly;
+            height: 50vh;
+        }
+
+        .contact-wrap {
+            border-radius: 35px;
+            width: 400px;
+            height: 70px;
+            background: #E9D900;
+            align-items: center;
+        }
+
+        .icon-nohover {
+            margin: 0 1rem 0 1.5rem;
+            width: 36px;
+            height: 36px;
+        }
+
+        @media screen and (max-width: 992px) {
+
+            .contact-r {
+                height: 300px;
+            }
+
+            .contact-wrap {
+                height: 55px;
+                width: 320px;
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+
+            .block-contact {
+                height: 100vh;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .logo-card {
+                width: 50vh;
+                height: 50vh;
+                margin-top: 30px;
+            }
+
+            .contact-r {
+                height: 250px;
+                margin: 30px 0;
+            }
+        }
+
+        @media screen and (max-width: 576px) {
+            .block-contact {
+                height: 90vh;
+            }
+
+            .logo-card {
+                width: 40vh;
+                height: 40vh;
+                margin-top: 30px;
+            }
+
+            .contact-r {
+                justify-content: space-between;
+            }
+        }
+
+        footer {
+            background: #929D6A;
+            height: 20vh;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-evenly;
+            color: #fff;
+        }
+
+        @media screen and (max-width: 576px) {
+            footer {
+                height: 10vh;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box-fixed">
+        <nav class="flex">
+            <div class="cart transition"><a href=""><img class="icon transition" src="images/icon-cart.svg" alt=""></a>
+            </div>
+            <div class="menu transition">
+                <div class="box-bar transition">
+                    <div class="bar bar1 transition"></div>
+                    <div class="bar bar2 transition"></div>
+                    <div class="bar bar3 transition"></div>
+                </div>
+                <div class="menu-bg transition pad"></div>
+                <ul class="transition flex">
+                    <a href="index.html">
+                        <li class="menu-logo pad"><img src="images/logo-kv.svg" alt=""></li>
+                    </a>
+                    <a href="index.html" class="transition">
+                        <li>草上奔 RUNNING EGG</li>
+                    </a>
+                    <a href="farm.html" class="transition">
+                        <li>關於牧場 FARM</li>
+                    </a>
+                    <a href="product.html" class="transition">
+                        <li>產品組合 PRODUCT</li>
+                    </a>
+                    <a href="qna.html" class="transition">
+                        <li>問與答 Q&A</li>
+                    </a>
+                </ul>
+            </div>
+        </nav>
+        <div class="icon-fixed flex">
+            <div class="line"></div>
+            <a href="https://www.instagram.com/running.egg/"><img class="icon transition"
+                    src="images/icon-instagram.svg" alt=""></a>
+            <a href="https://www.facebook.com/runninghen.egg"><img class="icon transition"
+                    src="images/icon-facebook.svg" alt=""></a>
+        </div>
+        <div class="btn-gotop transition" id="goTop">
+            <a><img src="images/icon-gotop.svg" alt=""></a>
+        </div>
+    </div>
+    <div class="wrapper" id="fullpage">
+        <div class="block-kv bg-paper section">
+            <div class="kv-main flex ">
+                <div class="kv-top flex">
+                    <img class="img-text-l transition animate__animated animate__fadeInDown animate__delay-4s"
+                        src="images/text-l.svg" alt="">
+                    <img class="img-logo-kv transition animate__animated animate__fadeIn animate__delay-3s"
+                        src="images/logo-kv.svg" alt="">
+                    <img class="img-text-r transition animate__animated animate__fadeInDown animate__delay-4s"
+                        src="images/text-r.svg" alt="">
+                </div>
+                <div class="kv-bottom flex">
+                    <img class="img-logo-text transition animate__animated animate__fadeIn animate__delay-5s"
+                        src="images/logo-text-kv.svg" alt="">
+                    <img class="img-grass-below transition animate__animated animate__zoomIn animate__delay-2s"
+                        src="images/grass-below.svg" alt="">
+                    <img class="img-freerange transition animate__animated animate__zoomIn animate__delay-1s"
+                        src="images/freerangeeggs.svg" alt="">
+                </div>
+                <div class="kv-bg ">
+                    <img class="img-flower1 absolute transition animate__animated animate__zoomIn "
+                        src="images/flower1.svg" alt="">
+                    <img class="img-flower3 absolute transition animate__animated animate__zoomIn "
+                        src="images/flower3.svg" alt="">
+                    <img class="img-grass-l absolute transition animate__animated animate__zoomIn animate__delay-2s"
+                        src="images/grass-l.svg" alt="">
+                    <img class="img-tree-r absolute transition animate__animated animate__zoomIn animate__delay-2s"
+                        src="images/tree-r.svg" alt="">
+                    <img class="img-strawberry-l absolute transition animate__animated animate__zoomIn animate__delay-1s"
+                        src="images/strawberry-l.svg" alt="">
+                    <img class="img-flower-r absolute transition animate__animated animate__zoomIn animate__delay-1s"
+                        src="images/flower-r.svg" alt="">
+                </div>
+            </div>
+        </div>
+        <div class="block-farm flex section" id="block-farm">
+            <div class="farm-title" id="farmTitle">
+                <h1 class="transition">全場放牧飼養。</h1>
+                <div class="line"></div>
+            </div>
+            <div class="farm-main flex">
+                <div class="farm-icon flex" id="farmIconLeft">
+                    <div class="card-icon flex">
+                        <div class="icon-wrapper flex"><img src="images/icon01.svg" alt=""></div>
+                        <h4>有機飼糧</h4>
+                    </div>
+                    <div class="card-icon flex">
+                        <div class="icon-wrapper flex"><img src="images/icon02.svg" alt=""></div>
+                        <h4>機能營養素</h4>
+                    </div>
+                </div>
+                <div class="farm-slider flex" id="farmSlider">
+                    <div class="slideWrapper">
+                        <ul id="slideImages" class="slideImages flex"></ul>
+
+                        <a id="goNext" class="arrow-btn arrow-right flex transition">
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                        <a id="goPrev" class="arrow-btn arrow-left flex transition">
+                            <i class="fas fa-arrow-left"></i>
+                        </a>
+                    </div>
+                    <ul id="slideDots" class="slideDots flex"></ul>
+                </div>
+                <div class="farm-icon flex" id="farmIconRight">
+                    <div class="card-icon flex">
+                        <div class="icon-wrapper flex"><img src="images/icon03.svg" alt=""></div>
+                        <h4>友善放牧</h4>
+                    </div>
+                    <div class="card-icon flex">
+                        <div class="icon-wrapper flex"><img src="images/icon04.svg" alt=""></div>
+                        <h4>100%無用藥</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="farm-bottom flex" id="farmBottom">
+                <div class="farm-b-l" id="farmBottomLeft">
+                    <h4>符合『歐盟規範蛋雞福利』標準飼養。</h4>
+                    <p>海拔600公尺的草上奔牧場，<br>
+                        阿奔們快樂奔跑於山林之間，<br>
+                        與獼猴老鷹為鄰。
+                    </p>
+                </div>
+                <div class="farm-b-r">
+                    <div class="btn"><a href="farm.html">
+                            <p>拜訪阿奔的家</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="block-egg bg-paper flex section">
+            <div class="egg-title z-1" id="eggTitle">
+                <h1 class="web">餵食天然穀物、玉米、有機蔬菜及益生菌，</br>並添加植物性營養素。</h1>
+                <h1 class="mobile">餵食天然穀物、玉米、有機蔬菜及益生菌，並添加植物性營養素。</h1>
+            </div>
+            <div class="egg-main flex z-1 transition">
+                <div class="egg-aside egg-aside-l flex" id="eggAsideLeft">
+                    <div class="egg-aside-lt flex transition">
+                        <h3>富含</h3>
+                        <div class="flex">
+                            <h4>蝦紅素</h4>
+                            <h4>葉黃素</h4>
+                        </div>
+                    </div>
+                    <p>我們在飼料中加入‘紅藻萃取之蝦紅素’以及來自西班牙的‘金盞花萃取之葉黃素’。據研究顯示每天攝取5克葉黃素可減低老年性黃斑部退化喔！我們的《原野放牧蛋》經由「愛之味檢驗分析中心」分析，每100克的含有1589微克的葉黃素，為一般雞蛋的5倍！
+                    </p>
+                </div>
+                <div class="egg-center" id="eggCenter">
+                    <img src="images/egg01.png" alt="">
+                </div>
+                <div class="egg-aside egg-aside-r flex" id="eggAsideRight">
+                    <div class="egg-aside-rt flex">
+                        <h3>不含</h3>
+                        <div class="flex">
+                            <h4>芬普尼</h4>
+                            <h4>抗生素</h4>
+                        </div>
+                    </div>
+                    <p>芬普尼為農藥的一種，多用於殺蟲劑使用，人類長期吸收的話可能傷害肝、腎和甲狀腺！而我們的阿奔以天然「沙浴」的方式洗澡，可以利用沙子磨去羽毛內的寄生蟲，不需要使用芬普尼等除蟲劑！</p>
+                </div>
+            </div>
+            <div class="egg-bg">
+                <img src="images/flower6.svg" alt="">
+            </div>
+        </div>
+        <div class="block-contact flex transition">
+            <div class="logo-card" id="logoCard"><img src="images/logo-card.svg" alt=""></div>
+            <div class="contact-r flex" id="contactRight">
+                <img class="web" src="images/flower-below-g.svg" alt="">
+                <ul class="flex">
+                    <li class="contact-wrap transition flex"><img class="icon-nohover" src="images/icon-line.svg"
+                            alt="">
+                        <p>ID:running.egg</p>
+                    </li>
+                    <li class="contact-wrap transition flex"><img class="icon-nohover" src="images/icon-phone.svg"
+                            alt="">
+                        <p>0905-001589</p>
+                    </li>
+                    <li class="contact-wrap transition flex"><img class="icon-nohover" src="images/icon-address.svg"
+                            alt="">
+                        <p>台中市豐原區水源路631號</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <footer class="flex">
+            &copy; 20200616 Emma Hung
+        </footer>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"
+        integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.0.8/fullpage.extensions.min.js"></script> -->
+    <script>
+
+        $(".menu").click(function () {
+            $(this).toggleClass('current');
+        });
+
+        // farm-slider------------------------Start--------------
+        let slideImages = ["farm-slide1.JPG", "farm-slide2.JPG", "farm-slide3.JPG", "farm-slide4.JPG", "farm-slide5.JPG"]
+        let slideIndex = 0;
+        let slideCount = slideImages.length;
+        let slideWidth = $(".slideWrapper").width();
+
+        for (i = 0; i < slideImages.length; i++) {
+            $("#slideImages").append(`<li><img src="images/${slideImages[i]}" alt=""></li>`)
+            $("#slideDots").append(`<li></li>`)
+        }
+
+        $(window).resize(function () {
+            slideCount = slideImages.length;
+            slideWidth = $(".slideWrapper").width();
+            $("#slideImages").css("left", 0 - slideIndex * slideWidth)
+            $("#slideImages").css("width", slideWidth * slideCount)
+        })
+
+        $("#slideDots li").eq(0).addClass("current")
+        $("#slideDots li").mouseenter(function () {
+            slideIndex = $(this).index();
+            goSlide()
+        })
+
+        $("#goNext").click(function () {
+            slideIndex = slideIndex + 1;
+            goSlide()
+
+        })
+        $("#goPrev").click(function () {
+            slideIndex = slideIndex - 1;
+            goSlide()
+        })
+
+        function goSlide() {
+            if (slideIndex < 0) {
+                slideIndex = slideCount - 1
+            }
+            if (slideIndex >= slideCount) {
+                slideIndex = 0
+            }
+            $("#slideImages").css("left", 0 - slideIndex * slideWidth)
+
+            $("#slideDots li").eq(slideIndex).addClass("current")
+                .siblings().removeClass("current")
+        }
+        // farm-slider------------------------End--------------
+
+        // goTop()------------------------Start--------------
+
+        let vh = $("#block-farm").offset().top;
+
+        $("#goTop").click(function () {
+            $("html").animate({
+                scrollTop: 0
+            })
+        });
+        $(window).scroll(function () {
+            let scrollTop = $(this).scrollTop();
+            // console.log(scrollTop)
+            if (scrollTop < vh) {
+                $("#goTop").css("opacity", "0")
+            }
+            else {
+                $("#goTop").css("opacity", "1")
+            }
+        })
+        // goTop()------------------------End--------------
+
+        //mouseScroll
+        $("#farmTitle").css("transform", "translateX(-100%)")
+        $("#farmIconLeft").css("transform", "translateX(-200%)")
+        $("#farmIconRight").css("transform", "translateX(200%)")
+        $("#farmSlider").css("opacity", "0")
+        $("#farmBottom").css("opacity", "0")
+        $("#eggTitle").css("transform", "translateX(-100%)")
+        $("#eggAsideLeft").css("transform", "translate(-200%)")
+        $("#eggAsideRight").css("transform", "translate(200%)")
+        $("#eggCenter").css("opacity", "0")
+        $("#logoCard").css("transform", "translateY(-100vh)").css("opacity", "0")
+        $("#contactRight").css("transform", "translateY(-100vh)").css("opacity", "0")
+
+        $(window).scroll(function () {
+            let scrollTop = $(this).scrollTop();
+            let blockFarmTop = $(".block-kv").offset().top
+            console.log(scrollTop)
+            let blockEggTop = $(".block-farm").offset().top
+            let blockContactTop = $(".block-egg").offset().top
+            console.log(scrollTop)
+
+            if (scrollTop > blockFarmTop) {
+                $("#farmTitle").css("transform", "translateX(0)").css("transition", "1s")
+            }
+            if (scrollTop > blockFarmTop + 500) {
+                $("#farmSlider").css("opacity", "1").css("transition", "1s")
+                $("#farmIconLeft").css("transform", "translateX(0)").css("transition", "1s")
+                $("#farmIconRight").css("transform", "translateX(0)").css("transition", "1s")
+            }
+            if (scrollTop > blockFarmTop + 600) {
+                $("#farmBottom").css("opacity", "1").css("transition", "1s")
+            }
+            if (scrollTop > blockEggTop) {
+                $("#eggTitle").css("transform", "translateX(0)").css("transition", "1.5s")
+                $("#eggCenter").css("opacity", "1").css("transition", "1.5s")
+            }
+            if (scrollTop > blockEggTop + 300) {
+                $("#eggAsideLeft").css("transform", "translateX(0)").css("transition", "1.5s")
+                $("#eggAsideRight").css("transform", "translateX(0)").css("transition", "1.5s")
+            }
+            if (scrollTop > blockContactTop + 200) {
+                $("#logoCard").css("transform", "translateY(0)").css("transition", "1.5s").css("opacity", "1")
+                $("#contactRight").css("transform", "translateY(0)").css("transition", "1.5s").css("opacity", "1")
+            }
+
+        })
+
+    </script>
+</body>
+
+</html>
